@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ProfView {
+public class ProfSelfView {
 
 	private JFrame frame;
 	private JTextField profNameTextField;
@@ -34,7 +34,7 @@ public class ProfView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ProfView window = new ProfView();
+					ProfSelfView window = new ProfSelfView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,8 +45,9 @@ public class ProfView {
 
 	/**
 	 * Create the application.
+	 * 这是教授用户可以看到的视图:
 	 */
-	public ProfView() {
+	public ProfSelfView() {
 		initialize();
 	}
 
