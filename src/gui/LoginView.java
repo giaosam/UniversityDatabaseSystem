@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Login {
+public class LoginView {
 
 	private JFrame frame;
 	private JTextField cardNumTextField;
@@ -27,7 +27,7 @@ public class Login {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login window = new Login();
+					LoginView window = new LoginView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class Login {
 	/**
 	 * Create the application.
 	 */
-	public Login() {
+	public LoginView() {
 		initialize();
 	}
 
@@ -76,13 +76,13 @@ public class Login {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBackground(new Color(173, 255, 47));
 		lblNewLabel.setForeground(new Color(0, 255, 0));
-		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/res/avatar.png")));
+		lblNewLabel.setIcon(new ImageIcon(LoginView.class.getResource("/res/avatar.png")));
 		lblNewLabel.setBounds(90, 120, 31, 36);
 		frame.getContentPane().add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(new Color(0, 0, 0));
-		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/res/lock.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(LoginView.class.getResource("/res/lock.png")));
 		lblNewLabel_1.setBounds(90, 192, 24, 26);
 		frame.getContentPane().add(lblNewLabel_1);
 		
