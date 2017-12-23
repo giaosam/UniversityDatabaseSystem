@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 
-public class StudentView {
+public class StuSelftView {
 
 	private JFrame frame;
 	private JTextField stuNameTextField;
@@ -36,7 +36,7 @@ public class StudentView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StudentView window = new StudentView();
+					StuSelftView window = new StuSelftView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,8 +47,9 @@ public class StudentView {
 
 	/**
 	 * Create the application.
+	 * 这是学生用户可以看到的视图:
 	 */
-	public StudentView() {
+	public StuSelftView() {
 		initialize();
 	}
 

@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CourseView {
 
@@ -130,8 +132,21 @@ public class CourseView {
 		
 		courseStuInfoBtn = new JButton("\u67E5\u770B\u9009\u4FEE\u8BE5\u8BFE\u5B66\u751F\u4FE1\u606F");
 		courseStuInfoBtn.setFont(new Font("ËÎÌו", Font.BOLD, 25));
-		courseStuInfoBtn.setBounds(490, 461, 310, 55);
+		courseStuInfoBtn.setBounds(501, 461, 299, 55);
 		coursePanel.add(courseStuInfoBtn);
+		
+		JButton courseLastBtn = new JButton("\u4E0A\u4E00\u9875");
+		courseLastBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		courseLastBtn.setFont(new Font("ËÎÌו", Font.BOLD, 25));
+		courseLastBtn.setBounds(105, 461, 152, 55);
+		coursePanel.add(courseLastBtn);
+		
+		JButton courseNextBtn = new JButton("\u4E0B\u4E00\u9875");
+		courseNextBtn.setFont(new Font("ËÎÌו", Font.BOLD, 25));
+		courseNextBtn.setBounds(303, 461, 152, 55);
+		coursePanel.add(courseNextBtn);
 	}
-
 }
