@@ -77,18 +77,18 @@ public class StudentView {
 		
 		JLabel stuNameLabel = new JLabel("\u59D3\u540D\uFF1A");
 		stuNameLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
-		stuNameLabel.setBounds(125, 135, 103, 30);
+		stuNameLabel.setBounds(125, 145, 103, 30);
 		stuInfoPanel.add(stuNameLabel);
 		
 		stuNumLabel = new JLabel("\u5B66\u53F7\uFF1A");
 		stuNumLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
-		stuNumLabel.setBounds(500, 135, 103, 30);
+		stuNumLabel.setBounds(500, 145, 103, 30);
 		stuInfoPanel.add(stuNumLabel);
 		
 		// 显示学生姓名的JTextView:
 		stuNameTextField = new JTextField();
 		stuNameTextField.setFont(new Font("宋体", Font.PLAIN, 20));
-		stuNameTextField.setBounds(200, 130, 200, 40);
+		stuNameTextField.setBounds(200, 140, 200, 40);
 		stuInfoPanel.add(stuNameTextField);
 		stuNameTextField.setColumns(10);
 		stuNameTextField.setEditable(false);
@@ -98,12 +98,12 @@ public class StudentView {
 		stuNumTextField.setFont(new Font("宋体", Font.PLAIN, 20));
 		stuNumTextField.setEditable(false);
 		stuNumTextField.setColumns(10);
-		stuNumTextField.setBounds(575, 130, 200, 40);
+		stuNumTextField.setBounds(575, 140, 200, 40);
 		stuInfoPanel.add(stuNumTextField);
 		
 		stuSexLabel = new JLabel("\u6027\u522B\uFF1A");
 		stuSexLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
-		stuSexLabel.setBounds(125, 215, 103, 30);
+		stuSexLabel.setBounds(125, 225, 103, 30);
 		stuInfoPanel.add(stuSexLabel);
 		
 		// 显示性别的JTextView:
@@ -111,12 +111,12 @@ public class StudentView {
 		sexSexTextField.setFont(new Font("宋体", Font.PLAIN, 20));
 		sexSexTextField.setEditable(false);
 		sexSexTextField.setColumns(10);
-		sexSexTextField.setBounds(200, 210, 200, 40);
+		sexSexTextField.setBounds(200, 220, 200, 40);
 		stuInfoPanel.add(sexSexTextField);
 		
 		stuAgeLabel = new JLabel("\u5E74\u9F84\uFF1A");
 		stuAgeLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
-		stuAgeLabel.setBounds(500, 215, 103, 30);
+		stuAgeLabel.setBounds(500, 225, 103, 30);
 		stuInfoPanel.add(stuAgeLabel);
 		
 		// 显示年龄的JTextView:
@@ -124,12 +124,12 @@ public class StudentView {
 		stuAgeTextField.setFont(new Font("宋体", Font.PLAIN, 20));
 		stuAgeTextField.setEditable(false);
 		stuAgeTextField.setColumns(10);
-		stuAgeTextField.setBounds(575, 210, 200, 40);
+		stuAgeTextField.setBounds(575, 220, 200, 40);
 		stuInfoPanel.add(stuAgeTextField);
 		
 		stuGpaLabel = new JLabel("\u7EE9\u70B9\uFF1A");
 		stuGpaLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
-		stuGpaLabel.setBounds(125, 294, 103, 30);
+		stuGpaLabel.setBounds(125, 305, 103, 30);
 		stuInfoPanel.add(stuGpaLabel);
 		
 		// 显示绩点的JTextView:
@@ -137,7 +137,7 @@ public class StudentView {
 		stuGpaTextField.setFont(new Font("宋体", Font.PLAIN, 20));
 		stuGpaTextField.setEditable(false);
 		stuGpaTextField.setColumns(10);
-		stuGpaTextField.setBounds(200, 290, 200, 40);
+		stuGpaTextField.setBounds(200, 300, 200, 40);
 		stuInfoPanel.add(stuGpaTextField);
 		
 		table = new JTable();
