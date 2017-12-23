@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,14 +13,13 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class LoginView {
 
 	private JFrame frame;
-	private JTextField cardNumTextField;
-	private JTextField passwdTextField;
-	private JLabel lblNewLabel_1;
-	private JPanel loginBgPanel;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -48,50 +49,52 @@ public class LoginView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 515, 363);
+		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("登录界面");
 		
-		// 输入一卡通号的JTextView:
-		cardNumTextField = new JTextField();
-		cardNumTextField.setBounds(117, 120, 298, 36);
-		frame.getContentPane().add(cardNumTextField);
-		cardNumTextField.setColumns(10);
+		JPanel loginPanel = new JPanel() {
+			 protected void paintComponent(Graphics g) {  
+	                ImageIcon icon = new ImageIcon("src\\res\\bg_login.jpg");  
+	                Image img = icon.getImage();  
+	                g.drawImage(img, 0, 0, icon.getIconWidth(),  
+	                        icon.getIconHeight(), icon.getImageObserver());  
+	                frame.setSize(icon.getIconWidth(), icon.getIconHeight());  
+			 }
+	  
+		};
+		loginPanel.setBounds(0, 0, 584, 412);
+		frame.getContentPane().add(loginPanel);
+		loginPanel.setLayout(null);
 		
-		// 输入密码的JTextView:
-		passwdTextField = new JTextField();
-		passwdTextField.setColumns(10);
-		passwdTextField.setBounds(117, 188, 298, 36);
-		frame.getContentPane().add(passwdTextField);
-		
-		JButton loginBtn = new JButton("\u767B\u5F55");
-		loginBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		loginBtn.setBackground(Color.GREEN);
-		loginBtn.setBounds(100, 252, 315, 36);
-		frame.getContentPane().add(loginBtn);
+		JButton loginBtn = new JButton("\u767B  \u5F55");
+		loginBtn.setBackground(new Color(255, 165, 0));
+		loginBtn.setFont(new Font("楷体", Font.BOLD, 24));
+		loginBtn.setBounds(160, 265, 265, 35);
+		loginPanel.add(loginBtn);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBackground(new Color(173, 255, 47));
-		lblNewLabel.setForeground(new Color(0, 255, 0));
-		lblNewLabel.setIcon(new ImageIcon(LoginView.class.getResource("/res/avatar.png")));
-		lblNewLabel.setBounds(90, 120, 31, 36);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon(LoginView.class.getResource("/res/avatar.jpg")));
+		lblNewLabel.setBackground(Color.RED);
+		lblNewLabel.setBounds(160, 170, 30, 30);
+		loginPanel.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBackground(new Color(0, 0, 0));
-		lblNewLabel_1.setIcon(new ImageIcon(LoginView.class.getResource("/res/lock.png")));
-		lblNewLabel_1.setBounds(90, 192, 24, 26);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(LoginView.class.getResource("/res/lock.jpg")));
+		label.setBackground(Color.RED);
+		label.setBounds(160, 200, 30, 30);
+		loginPanel.add(label);
 		
-		loginBgPanel = new JPanel();
-		loginBgPanel.setBounds(0, 0, 500, 326);
+		textField = new JTextField();
+		textField.setBounds(190, 169, 235, 31);
+		loginPanel.add(textField);
+		textField.setColumns(10);
 		
-		frame.getContentPane().add(loginBgPanel);
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(190, 200, 235, 31);
+		loginPanel.add(textField_1);
 		
 	}
 }
