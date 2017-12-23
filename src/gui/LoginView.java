@@ -54,11 +54,13 @@ public class LoginView {
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("登录界面");
 		
+		// 输入一卡通号的JTextView:
 		cardNumTextField = new JTextField();
 		cardNumTextField.setBounds(117, 120, 298, 36);
 		frame.getContentPane().add(cardNumTextField);
 		cardNumTextField.setColumns(10);
 		
+		// 输入密码的JTextView:
 		passwdTextField = new JTextField();
 		passwdTextField.setColumns(10);
 		passwdTextField.setBounds(117, 188, 298, 36);
