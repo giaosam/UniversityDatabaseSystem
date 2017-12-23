@@ -40,6 +40,7 @@ public class AdminView {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 这是管理员登录后看到的基本界面，可以进一步跳转到其他界面查看各种信息
 	 */
 	private void initialize() {
 		frame = new JFrame();
