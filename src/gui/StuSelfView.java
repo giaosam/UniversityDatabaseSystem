@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
@@ -12,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -147,10 +149,6 @@ public class StuSelfView {
 		stuGpaTextField.setBounds(200, 310, 200, 40);
 		stuInfoPanel.add(stuGpaTextField);
 		
-		table = new JTable();
-		table.setBounds(125, 435, 650, 139);
-		stuInfoPanel.add(table);
-		
 		JLabel label = new JLabel("\u9009\u8BFE\u4FE1\u606F\uFF1A");
 		label.setFont(new Font("Adobe ·ÂËÎ Std R", Font.PLAIN, 26));
 		label.setBounds(125, 390, 174, 30);
@@ -200,5 +198,25 @@ public class StuSelfView {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		String[] columnNames = { "First Name", "Last Name", "Sport",
+				                  "# of Years", "Vegetarian" };
+		Object[][] data = {
+				                  { "Kathy", "Smith", "Snowboarding", new Integer(5),
+				                          new Boolean(false) },
+				                  { "John", "Doe", "Rowing", new Integer(3), new Boolean(true) },
+				                  { "Sue", "Black", "Knitting", new Integer(2),
+				                          new Boolean(false) },
+				                  { "Jane", "White", "Speed reading", new Integer(20),
+				                          new Boolean(true) },
+				                  { "Joe", "Brown", "Pool", new Integer(10), new Boolean(false) } 
+				          };
+		table = new JTable(data, columnNames);
+		table.setFillsViewportHeight(true);
+		table.setPreferredScrollableViewportSize(new Dimension(500, 400));
+		table.setBounds(125, 435, 650, 139);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		stuInfoPanel.add(scrollPane);stuInfoPanel.add(table);
+		
 	}
 }

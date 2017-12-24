@@ -190,11 +190,11 @@ public class CourseView {
 	    	ca.rs = ca.stmt.executeQuery();
 	    		    	
 	    	while (ca.rs.next()) {
-	    		courseCnoTextField.setText(ca.rs.getString(4));
+	    		courseCnoTextField.setText(ca.rs.getString(2));
 	    		courseSectnoTextField.setText(ca.rs.getString(3));
 	    		courseDeptTextField.setText(ca.rs.getString(5));
 	    		courseProfTextField.setText(ca.rs.getString(6));
-	    		courseCnameTextField.setText(ca.rs.getString(2));
+	    		courseCnameTextField.setText(ca.rs.getString(4));
 	    		//System.out.println(passwordFromDatabase);
 	        }
 	    	    	
