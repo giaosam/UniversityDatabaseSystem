@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import db.ConnectAccess;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,15 +29,16 @@ public class ProfSelfView {
 	private JTextField profSectnoTextField;
 	private JLabel profCnameLabel;
 	private JTextField profCnameTextField;
+	private String cardNum;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String cardNum) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ProfSelfView window = new ProfSelfView();
+					ProfSelfView window = new ProfSelfView(cardNum);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +51,8 @@ public class ProfSelfView {
 	 * Create the application.
 	 * 这是教授用户可以看到的视图:
 	 */
-	public ProfSelfView() {
+	public ProfSelfView(String cardNums) {
+		cardNum = cardNums;
 		initialize();
 	}
 
@@ -154,5 +159,29 @@ public class ProfSelfView {
 		profStuGpaBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		profStuGpaBtn.setBounds(525, 515, 245, 55);
 		profPanel.add(profStuGpaBtn);
+		
+		try {
+			
+			ConnectAccess ca = new ConnectAccess();
+			ca.ConnectAccessFile();
+			
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM prof WHERE cardNum = ?");
+			ca.stmt.setString(1, cardNum);
+	    	ca.rs = ca.stmt.executeQuery();
+	    	
+	    	while (ca.rs.next()) {
+	    		profNameTextField.setText(ca.rs.getString(1));
+	    		profCollegeTextField.setText(ca.rs.getString(2));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	ca.conn.close();
+	    	
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

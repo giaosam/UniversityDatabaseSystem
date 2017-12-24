@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,7 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 
-public class StuSelftView {
+import db.ConnectAccess;
+
+public class StuSelfView {
 
 	private JFrame frame;
 	private JTextField stuNameTextField;
@@ -28,15 +32,16 @@ public class StuSelftView {
 	private JLabel stuGpaLabel;
 	private JTextField stuGpaTextField;
 	private JTable table;
+	private String cardNum;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String cardNum) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StuSelftView window = new StuSelftView();
+					StuSelfView window = new StuSelfView(cardNum);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +54,8 @@ public class StuSelftView {
 	 * Create the application.
 	 * 这是学生用户可以看到的视图:
 	 */
-	public StuSelftView() {
+	public StuSelfView(String cardNums) {
+		cardNum = cardNums;
 		initialize();
 	}
 
@@ -149,5 +155,50 @@ public class StuSelftView {
 		label.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
 		label.setBounds(125, 390, 174, 30);
 		stuInfoPanel.add(label);
+		
+		try {
+			String sid = "";
+			
+			ConnectAccess ca = new ConnectAccess();
+			ca.ConnectAccessFile();
+			
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM student WHERE cardNum = ?");
+			ca.stmt.setString(1, cardNum);
+	    	ca.rs = ca.stmt.executeQuery();
+	    	
+	    	while (ca.rs.next()) {
+	    		stuNumTextField.setText(cardNum);
+	    		sid = ca.rs.getString(1);
+	    		stuNameTextField.setText(ca.rs.getString(2));
+	    		sexSexTextField.setText(ca.rs.getString(3));
+	    		stuAgeTextField.setText(ca.rs.getString(4));
+	    		stuGpaTextField.setText(ca.rs.getString(6));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	
+	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM enroll WHERE sid = ?");
+			ca.stmt.setString(1, sid);
+	    	ca.rs = ca.stmt.executeQuery();
+	    	
+	    	while (ca.rs.next()) {
+	    		stuNumTextField.setText(cardNum);
+	    		stuNameTextField.setText(ca.rs.getString(2));
+	    		sexSexTextField.setText(ca.rs.getString(3));
+	    		stuAgeTextField.setText(ca.rs.getString(4));
+	    		stuGpaTextField.setText(ca.rs.getString(6));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	ca.conn.close();
+	    	
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
