@@ -8,8 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import db.ConnectAccess;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,6 +28,7 @@ public class CourseView {
 	private JTextField courseProfTextField;
 	private JTextField courseNumTextField;
 	private JButton courseStuInfoBtn;
+	private int cid = 1;
 
 	/**
 	 * Launch the application.
@@ -53,7 +59,7 @@ public class CourseView {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 750);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel coursePanel = new JPanel() {
@@ -138,6 +144,12 @@ public class CourseView {
 		JButton courseLastBtn = new JButton("\u4E0A\u4E00\u9875");
 		courseLastBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (cid == 1) {
+					JOptionPane.showMessageDialog(null, "已经是第一个课程", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				cid -= 1;
+				getInfo(cid);
 			}
 		});
 		courseLastBtn.setFont(new Font("宋体", Font.BOLD, 25));
@@ -145,8 +157,49 @@ public class CourseView {
 		coursePanel.add(courseLastBtn);
 		
 		JButton courseNextBtn = new JButton("\u4E0B\u4E00\u9875");
+		courseNextBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cid == 13) {
+					JOptionPane.showMessageDialog(null, "已经是最后一个课程", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				cid += 1;
+				getInfo(cid);
+			}
+		});
 		courseNextBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		courseNextBtn.setBounds(303, 461, 152, 55);
 		coursePanel.add(courseNextBtn);
+		
+		getInfo(cid);
 	}
+	
+    private void getInfo(int cidToCheck) {
+		
+        try {	
+			ConnectAccess ca = new ConnectAccess();
+			ca.ConnectAccessFile();
+			
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM courseInfo WHERE cid = ?");
+			ca.stmt.setInt(1, cidToCheck);
+	    	ca.rs = ca.stmt.executeQuery();
+	    		    	
+	    	while (ca.rs.next()) {
+	    		courseCnoTextField.setText(ca.rs.getString(4));
+	    		courseSectnoTextField.setText(ca.rs.getString(3));
+	    		courseDeptTextField.setText(ca.rs.getString(5));
+	    		courseProfTextField.setText(ca.rs.getString(6));
+	    		courseNumTextField.setText(ca.rs.getString(2));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	ca.conn.close();
+	    	
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
 }

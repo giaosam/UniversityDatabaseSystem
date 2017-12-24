@@ -3,13 +3,20 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import db.ConnectAccess;
+
 import javax.swing.JButton;
 
 public class DeptView {
@@ -17,6 +24,7 @@ public class DeptView {
 	private JFrame frame;
 	private JTextField deptNameTextField;
 	private JTextField textField;
+	private int deptid = 1;
 
 	/**
 	 * Launch the application.
@@ -47,7 +55,7 @@ public class DeptView {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 750);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel profPanel = new JPanel() {
@@ -88,11 +96,31 @@ public class DeptView {
 		profPanel.add(textField);
 		
 		JButton deptLastBtn = new JButton("\u4E0A\u4E00\u9875");
+		deptLastBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (deptid == 1) {
+					JOptionPane.showMessageDialog(null, "已经是第一个学院", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				deptid -= 1;
+				getInfo(deptid);
+			}
+		});
 		deptLastBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		deptLastBtn.setBounds(110, 480, 152, 55);
 		profPanel.add(deptLastBtn);
 		
 		JButton deptNextBtn = new JButton("\u4E0B\u4E00\u9875");
+		deptNextBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (deptid == 6) {
+					JOptionPane.showMessageDialog(null, "已经是最后一个学院", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				deptid += 1;
+				getInfo(deptid);
+			}
+		});
 		deptNextBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		deptNextBtn.setBounds(308, 480, 152, 55);
 		profPanel.add(deptNextBtn);
@@ -101,5 +129,33 @@ public class DeptView {
 		deptCourseBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		deptCourseBtn.setBounds(506, 480, 299, 55);
 		profPanel.add(deptCourseBtn);
+		
+		getInfo(deptid);
 	}
+	
+    private void getInfo(int deptIdToCheck) {
+		
+        try {	
+			ConnectAccess ca = new ConnectAccess();
+			ca.ConnectAccessFile();
+			
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM dept WHERE deptid = ?");
+			ca.stmt.setInt(1, deptIdToCheck);
+	    	ca.rs = ca.stmt.executeQuery();
+	    		    	
+	    	while (ca.rs.next()) {
+	    		deptNameTextField.setText(ca.rs.getString(1));
+	    		textField.setText(ca.rs.getString(2));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	ca.conn.close();
+	    	
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
 }

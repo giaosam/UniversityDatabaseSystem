@@ -179,21 +179,21 @@ public class StuSelfView {
 	    	ca.rs.close();
 	    	ca.stmt.close();
 	    	
-	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM enroll WHERE sid = ?");
-			ca.stmt.setString(1, sid);
-	    	ca.rs = ca.stmt.executeQuery();
-	    	
-	    	while (ca.rs.next()) {
-	    		stuNumTextField.setText(cardNum);
-	    		stuNameTextField.setText(ca.rs.getString(2));
-	    		sexSexTextField.setText(ca.rs.getString(3));
-	    		stuAgeTextField.setText(ca.rs.getString(4));
-	    		stuGpaTextField.setText(ca.rs.getString(6));
-	    		//System.out.println(passwordFromDatabase);
-	        }
-	    	
-	    	ca.rs.close();
-	    	ca.stmt.close();
+//	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM enroll WHERE sid = ?");
+//			ca.stmt.setString(1, sid);
+//	    	ca.rs = ca.stmt.executeQuery();
+//	    	
+//	    	while (ca.rs.next()) {
+//	    		stuNumTextField.setText(cardNum);
+//	    		stuNameTextField.setText(ca.rs.getString(2));
+//	    		sexSexTextField.setText(ca.rs.getString(3));
+//	    		stuAgeTextField.setText(ca.rs.getString(4));
+//	    		stuGpaTextField.setText(ca.rs.getString(6));
+//	    		//System.out.println(passwordFromDatabase);
+//	        }
+//	    	
+//	    	ca.rs.close();
+//	    	ca.stmt.close();
 	    	ca.conn.close();
 	    	
 		} catch (Exception e1) {
