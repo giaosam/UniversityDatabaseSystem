@@ -3,13 +3,20 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import db.ConnectAccess;
+
 import javax.swing.JButton;
 
 public class ProfessorView {
@@ -20,6 +27,7 @@ public class ProfessorView {
 	private JTextField profSectnoTextField;
 	private JTextField profCnoTextField;
 	private JTextField profCnameTextField;
+	private int pid = 1;
 
 	/**
 	 * Launch the application.
@@ -51,7 +59,7 @@ public class ProfessorView {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 750);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel profPanel = new JPanel() {
@@ -129,14 +137,79 @@ public class ProfessorView {
 		profPanel.add(profCnameTextField);
 		
 		JButton button = new JButton("\u4E0A\u4E00\u9875");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pid == 1) {
+					JOptionPane.showMessageDialog(null, "已经是第一名教授", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				pid -= 1;
+				getInfo(pid);
+			}
+		});
 		button.setFont(new Font("宋体", Font.BOLD, 25));
 		button.setBounds(415, 475, 152, 45);
 		profPanel.add(button);
 		
 		JButton button_1 = new JButton("\u4E0B\u4E00\u9875");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pid == 13) {
+					JOptionPane.showMessageDialog(null, "已经是最后一名教授", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				pid += 1;
+				getInfo(pid);
+			}
+		});
 		button_1.setFont(new Font("宋体", Font.BOLD, 25));
 		button_1.setBounds(613, 475, 152, 45);
 		profPanel.add(button_1);
+		
+		getInfo(pid);
 	}
+	
+    private void getInfo(int pidToCheck) {
+		
+        try {
+        	String pname = "";
+        	
+			ConnectAccess ca = new ConnectAccess();
+			ca.ConnectAccessFile();
+			
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM prof WHERE pid = ?");
+			ca.stmt.setInt(1, pidToCheck);
+	    	ca.rs = ca.stmt.executeQuery();
+	    		    	
+	    	while (ca.rs.next()) {
+	    		pname = ca.rs.getString(1);
+	    		profNameTextField.setText(pname);
+	    		profDeptTextField.setText(ca.rs.getString(2));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	
+	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM courseInfo WHERE pname = ?");
+			ca.stmt.setString(1, pname);
+	    	ca.rs = ca.stmt.executeQuery();
+	    		    	
+	    	while (ca.rs.next()) {
+	    		profCnoTextField.setText(ca.rs.getString(2));
+	    		profSectnoTextField.setText(ca.rs.getString(3));
+	    		profCnameTextField.setText(ca.rs.getString(4));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	ca.conn.close();
+	    	
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
 
 }

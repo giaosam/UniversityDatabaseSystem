@@ -9,14 +9,16 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import javax.swing.KeyStroke;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -125,10 +127,10 @@ public class LoginView {
 				return;
 			}
 			
-			if(cardNum.length() != 9){
-				JOptionPane.showMessageDialog(null, "请输入9位一卡通号", "错误提示", JOptionPane.ERROR_MESSAGE); 
-				return;
-			}
+//			if(cardNum.length() != 9){
+//				JOptionPane.showMessageDialog(null, "请输入9位一卡通号", "错误提示", JOptionPane.ERROR_MESSAGE); 
+//				return;
+//			}
 			
 			if (!cardNum.matches("[0-9]+")) {
 				JOptionPane.showMessageDialog(null, "一卡通号中含非法字符，请重新输入", "错误提示", JOptionPane.ERROR_MESSAGE); 

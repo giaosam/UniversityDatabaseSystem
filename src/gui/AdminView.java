@@ -3,6 +3,8 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -64,6 +66,11 @@ public class AdminView {
 		
 		// 跳转到新页面: 显示所有学生基本信息
 		JButton adminStuInfoBtn = new JButton("", new ImageIcon("src\\res\\adminStuBtn.jpg"));
+		adminStuInfoBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StudentView.main(null);
+			}
+		});
 		adminStuInfoBtn.setBounds(269, 151, 128, 128);
 		homePagePanel.add(adminStuInfoBtn);
 		
@@ -74,6 +81,11 @@ public class AdminView {
 		
 		// 跳转到新页面: 显示所有课程信息
 		JButton adminCourseBtn = new JButton("", new ImageIcon("src\\res\\adminCourseBtn.jpg"));
+		adminCourseBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CourseView.main(null);
+			}
+		});
 		adminCourseBtn.setBounds(580, 151, 128, 128);
 		homePagePanel.add(adminCourseBtn);
 		
@@ -84,6 +96,11 @@ public class AdminView {
 		
 		// 跳转到新页面: 显示所有教授信息
 		JButton adminProfBtn = new JButton("", new ImageIcon("src\\res\\adminProfBtn.jpg"));
+		adminProfBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProfessorView.main(null);
+			}
+		});
 		adminProfBtn.setBounds(269, 360, 128, 128);
 		homePagePanel.add(adminProfBtn);
 		
@@ -94,6 +111,11 @@ public class AdminView {
 		
 		// 跳转到新页面: 显示所有学院信息
 		JButton adminCollegeBtn = new JButton("", new ImageIcon("src\\res\\adminCollegeBtn.jpg"));
+		adminCollegeBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeptView.main(null);
+			}
+		});
 		adminCollegeBtn.setBounds(580, 360, 128, 128);
 		homePagePanel.add(adminCollegeBtn);
 		

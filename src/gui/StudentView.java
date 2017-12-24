@@ -3,13 +3,19 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import db.ConnectAccess;
+
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class StudentView {
@@ -20,6 +26,7 @@ public class StudentView {
 	private JTextField stuSexTextField;
 	private JTextField stuAgeTextField;
 	private JTextField stuNumTextField;
+	private int sid = 1;
 
 	/**
 	 * Launch the application.
@@ -51,7 +58,7 @@ public class StudentView {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 750);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel stuInfoPanel = new JPanel() {
@@ -129,13 +136,65 @@ public class StudentView {
 		stuInfoPanel.add(label_4);
 		
 		JButton stuLastBtn = new JButton("\u4E0A\u4E00\u9875");
+		stuLastBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (sid == 1) {
+					JOptionPane.showMessageDialog(null, "已经是第一名学生", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				sid -= 1;
+				getInfo(sid);
+			}
+		});
 		stuLastBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		stuLastBtn.setBounds(409, 462, 152, 45);
 		stuInfoPanel.add(stuLastBtn);
 		
 		JButton stuNextBtn = new JButton("\u4E0B\u4E00\u9875");
+		stuNextBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (sid == 104) {
+					JOptionPane.showMessageDialog(null, "已经是最后一名学生", "提示", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				sid += 1;
+				getInfo(sid);
+			}
+		});
 		stuNextBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		stuNextBtn.setBounds(607, 462, 152, 45);
 		stuInfoPanel.add(stuNextBtn);
+		
+		getInfo(sid);
+		
+	}
+	
+	private void getInfo(int sidToCheck) {
+		
+        try {	
+			ConnectAccess ca = new ConnectAccess();
+			ca.ConnectAccessFile();
+			
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM student WHERE sid = ?");
+			ca.stmt.setInt(1, sidToCheck);
+	    	ca.rs = ca.stmt.executeQuery();
+	    		    	
+	    	while (ca.rs.next()) {
+	    		stuNumTextField.setText(ca.rs.getString(7));
+	    		stuNameTextField.setText(ca.rs.getString(2));
+	    		stuSexTextField.setText(ca.rs.getString(3));
+	    		stuAgeTextField.setText(ca.rs.getString(4));
+	    		stuGpaTextField.setText(ca.rs.getString(6));
+	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	ca.conn.close();
+	    	
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

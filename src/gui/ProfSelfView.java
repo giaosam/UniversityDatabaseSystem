@@ -161,6 +161,7 @@ public class ProfSelfView {
 		profPanel.add(profStuGpaBtn);
 		
 		try {
+			String pname = "";
 			
 			ConnectAccess ca = new ConnectAccess();
 			ca.ConnectAccessFile();
@@ -170,9 +171,23 @@ public class ProfSelfView {
 	    	ca.rs = ca.stmt.executeQuery();
 	    	
 	    	while (ca.rs.next()) {
-	    		profNameTextField.setText(ca.rs.getString(1));
+	    		pname = ca.rs.getString(1);
+	    		profNameTextField.setText(pname);
 	    		profCollegeTextField.setText(ca.rs.getString(2));
 	    		//System.out.println(passwordFromDatabase);
+	        }
+	    	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
+	    	
+	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM courseInfo WHERE pname = ?");
+			ca.stmt.setString(1, pname);
+	    	ca.rs = ca.stmt.executeQuery();
+	    	
+	    	while (ca.rs.next()) {
+	    		profCnoTextField.setText(ca.rs.getString(2));
+	    		profSectnoTextField.setText(ca.rs.getString(3));
+	    		profCnameTextField.setText(ca.rs.getString(4));
 	        }
 	    	    	
 	    	ca.rs.close();
