@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -26,7 +28,9 @@ public class StudentView {
 	private JTextField stuSexTextField;
 	private JTextField stuAgeTextField;
 	private JTextField stuNumTextField;
-	private int sid = 1;
+	private int pageCnt = 0;
+	private int resultSize = 0;
+	private List<String[]> resultList = new ArrayList<String[]>();
 
 	/**
 	 * Launch the application.
@@ -138,12 +142,12 @@ public class StudentView {
 		JButton stuLastBtn = new JButton("\u4E0A\u4E00\u9875");
 		stuLastBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (sid == 1) {
+				if (pageCnt == 0) {
 					JOptionPane.showMessageDialog(null, "已经是第一名学生", "提示", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				sid -= 1;
-				getInfo(sid);
+				pageCnt -= 1;
+				displayInfo(pageCnt);
 			}
 		});
 		stuLastBtn.setFont(new Font("宋体", Font.BOLD, 25));
@@ -153,40 +157,37 @@ public class StudentView {
 		JButton stuNextBtn = new JButton("\u4E0B\u4E00\u9875");
 		stuNextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (sid == 104) {
+				if (pageCnt == resultSize-1) {
 					JOptionPane.showMessageDialog(null, "已经是最后一名学生", "提示", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				sid += 1;
-				getInfo(sid);
+				pageCnt += 1;
+				displayInfo(pageCnt);
 			}
 		});
 		stuNextBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		stuNextBtn.setBounds(607, 462, 152, 45);
 		stuInfoPanel.add(stuNextBtn);
 		
-		getInfo(sid);
-		
-	}
-	
-	private void getInfo(int sidToCheck) {
-		
-        try {	
+		try {	
 			ConnectAccess ca = new ConnectAccess();
 			ca.ConnectAccessFile();
 			
-			ca.stmt = ca.conn.prepareStatement("SELECT * FROM student WHERE sid = ?");
-			ca.stmt.setInt(1, sidToCheck);
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM student");
 	    	ca.rs = ca.stmt.executeQuery();
 	    		    	
 	    	while (ca.rs.next()) {
-	    		stuNumTextField.setText(ca.rs.getString(7));
-	    		stuNameTextField.setText(ca.rs.getString(2));
-	    		stuSexTextField.setText(ca.rs.getString(3));
-	    		stuAgeTextField.setText(ca.rs.getString(4));
-	    		stuGpaTextField.setText(ca.rs.getString(6));
-	    		//System.out.println(passwordFromDatabase);
+	    		String[] tempRow = new String[5];
+	    		tempRow[0] = ca.rs.getString(7);
+	    		tempRow[1] = ca.rs.getString(2);
+	    		tempRow[2] = ca.rs.getString(3);
+	    		tempRow[3] = ca.rs.getString(4);
+	    		tempRow[4] = ca.rs.getString(6);
+	    		resultList.add(tempRow);
 	        }
+	    	
+	    	resultSize = resultList.size();
+    	    displayInfo(pageCnt);
 	    	    	
 	    	ca.rs.close();
 	    	ca.stmt.close();
@@ -196,5 +197,15 @@ public class StudentView {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+	}
+	
+	private void displayInfo(int pageCnt) {
+		String[] courseInfo = resultList.get(pageCnt);
+		stuNumTextField.setText(courseInfo[0]);
+		stuNameTextField.setText(courseInfo[1]);
+		stuSexTextField.setText(courseInfo[2]);
+		stuAgeTextField.setText(courseInfo[3]);
+		stuGpaTextField.setText(courseInfo[4]);
 	}
 }

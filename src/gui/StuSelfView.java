@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -171,52 +173,60 @@ public class StuSelfView {
 	    		sexSexTextField.setText(ca.rs.getString(3));
 	    		stuAgeTextField.setText(ca.rs.getString(4));
 	    		stuGpaTextField.setText(ca.rs.getString(6));
-	    		//System.out.println(passwordFromDatabase);
 	        }
 	    	    	
 	    	ca.rs.close();
 	    	ca.stmt.close();
 	    	
-//	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM enroll WHERE sid = ?");
-//			ca.stmt.setString(1, sid);
-//	    	ca.rs = ca.stmt.executeQuery();
-//	    	
-//	    	while (ca.rs.next()) {
-//	    		stuNumTextField.setText(cardNum);
-//	    		stuNameTextField.setText(ca.rs.getString(2));
-//	    		sexSexTextField.setText(ca.rs.getString(3));
-//	    		stuAgeTextField.setText(ca.rs.getString(4));
-//	    		stuGpaTextField.setText(ca.rs.getString(6));
-//	    		//System.out.println(passwordFromDatabase);
-//	        }
-//	    	
-//	    	ca.rs.close();
-//	    	ca.stmt.close();
+	    	ca.stmt = ca.conn.prepareStatement("SELECT * FROM enroll WHERE sid = ?");
+			ca.stmt.setString(1, sid);
+	    	ca.rs = ca.stmt.executeQuery();
+	    	
+	    	int cnt = 0;
+	    	String[][] data = new String[3][4];
+	    	while (ca.rs.next()) {
+	    		data[cnt][0] = ca.rs.getString(4);
+	    		data[cnt][1] = ca.rs.getString(5);
+	    		data[cnt][2] = ca.rs.getString(2);
+	    		data[cnt][3] = ca.rs.getString(3);
+	    		cnt += 1;
+	        }
+	    	
+	    	String[][] displayData = new String[cnt][4];
+	    	for (int i = 0; i < cnt; i++) {
+	    		for (int j = 0; j < 4; j++) {
+	    			displayData[i][j] = data[i][j];
+	    		}
+	    	}
+	    	
+	    	ca.rs.close();
+	    	ca.stmt.close();
 	    	ca.conn.close();
+	    	
+	    	String[] columnNames = { "First", "Last", "Sport", "Years"};
+	    	table = new JTable(data, columnNames);
+			table.setFillsViewportHeight(true);
+			table.setPreferredScrollableViewportSize(new Dimension(500, 400));
+			table.setBounds(125, 435, 650, 139);
+			
+			JScrollPane scrollPane = new JScrollPane(table);
+			stuInfoPanel.add(scrollPane);stuInfoPanel.add(table);
 	    	
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String[] columnNames = { "First Name", "Last Name", "Sport",
-				                  "# of Years", "Vegetarian" };
-		Object[][] data = {
-				                  { "Kathy", "Smith", "Snowboarding", new Integer(5),
-				                          new Boolean(false) },
-				                  { "John", "Doe", "Rowing", new Integer(3), new Boolean(true) },
-				                  { "Sue", "Black", "Knitting", new Integer(2),
-				                          new Boolean(false) },
-				                  { "Jane", "White", "Speed reading", new Integer(20),
-				                          new Boolean(true) },
-				                  { "Joe", "Brown", "Pool", new Integer(10), new Boolean(false) } 
-				          };
-		table = new JTable(data, columnNames);
-		table.setFillsViewportHeight(true);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 400));
-		table.setBounds(125, 435, 650, 139);
 		
-		JScrollPane scrollPane = new JScrollPane(table);
-		stuInfoPanel.add(scrollPane);stuInfoPanel.add(table);
 		
+//		Object[][] data = {
+//				                  { "Kathy", "Smith", "Snowboarding", new Integer(5),
+//				                          new Boolean(false) },
+//				                  { "John", "Doe", "Rowing", new Integer(3), new Boolean(true) },
+//				                  { "Sue", "Black", "Knitting", new Integer(2),
+//				                          new Boolean(false) },
+//				                  { "Jane", "White", "Speed reading", new Integer(20),
+//				                          new Boolean(true) },
+//				                  { "Joe", "Brown", "Pool", new Integer(10), new Boolean(false) } 
+//				          };	
 	}
 }

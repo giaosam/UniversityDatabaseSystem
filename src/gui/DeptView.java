@@ -25,6 +25,7 @@ public class DeptView {
 	private JTextField deptNameTextField;
 	private JTextField textField;
 	private int deptid = 1;
+	private String deptName;
 
 	/**
 	 * Launch the application.
@@ -126,6 +127,11 @@ public class DeptView {
 		profPanel.add(deptNextBtn);
 		
 		JButton deptCourseBtn = new JButton("\u67E5\u770B\u5B66\u9662\u5F00\u8BFE\u60C5\u51B5");
+		deptCourseBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeptCourseView.main(deptName);
+			}
+		});
 		deptCourseBtn.setFont(new Font("ËÎÌו", Font.BOLD, 25));
 		deptCourseBtn.setBounds(506, 480, 299, 55);
 		profPanel.add(deptCourseBtn);
@@ -144,7 +150,8 @@ public class DeptView {
 	    	ca.rs = ca.stmt.executeQuery();
 	    		    	
 	    	while (ca.rs.next()) {
-	    		deptNameTextField.setText(ca.rs.getString(1));
+	    		deptName = ca.rs.getString(1);
+	    		deptNameTextField.setText(deptName);
 	    		textField.setText(ca.rs.getString(2));
 	    		//System.out.println(passwordFromDatabase);
 	        }
