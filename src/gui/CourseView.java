@@ -26,7 +26,7 @@ public class CourseView {
 	private JTextField courseSectnoTextField;
 	private JTextField courseDeptTextField;
 	private JTextField courseProfTextField;
-	private JTextField courseNumTextField;
+	private JTextField courseCnameTextField;
 	private JButton courseStuInfoBtn;
 	private int cid = 1;
 
@@ -124,19 +124,24 @@ public class CourseView {
 		courseProfTextField.setBounds(600, 230, 200, 40);
 		coursePanel.add(courseProfTextField);
 		
-		JLabel courseNumLabel = new JLabel("\u8BFE\u7A0B\u53F7\uFF1A");
-		courseNumLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
-		courseNumLabel.setBounds(480, 145, 116, 30);
-		coursePanel.add(courseNumLabel);
+		JLabel courseCnameLabel = new JLabel("\u8BFE\u7A0B\u540D\uFF1A");
+		courseCnameLabel.setFont(new Font("Adobe 仿宋 Std R", Font.PLAIN, 26));
+		courseCnameLabel.setBounds(480, 145, 116, 30);
+		coursePanel.add(courseCnameLabel);
 		
-		courseNumTextField = new JTextField();
-		courseNumTextField.setFont(new Font("宋体", Font.PLAIN, 20));
-		courseNumTextField.setEditable(false);
-		courseNumTextField.setColumns(10);
-		courseNumTextField.setBounds(600, 140, 200, 40);
-		coursePanel.add(courseNumTextField);
+		courseCnameTextField = new JTextField();
+		courseCnameTextField.setFont(new Font("宋体", Font.PLAIN, 20));
+		courseCnameTextField.setEditable(false);
+		courseCnameTextField.setColumns(10);
+		courseCnameTextField.setBounds(600, 140, 200, 40);
+		coursePanel.add(courseCnameTextField);
 		
+		// 跳转到StudentView界面。
 		courseStuInfoBtn = new JButton("\u67E5\u770B\u9009\u4FEE\u8BE5\u8BFE\u5B66\u751F\u4FE1\u606F");
+		courseStuInfoBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		courseStuInfoBtn.setFont(new Font("宋体", Font.BOLD, 25));
 		courseStuInfoBtn.setBounds(501, 461, 299, 55);
 		coursePanel.add(courseStuInfoBtn);
@@ -189,7 +194,7 @@ public class CourseView {
 	    		courseSectnoTextField.setText(ca.rs.getString(3));
 	    		courseDeptTextField.setText(ca.rs.getString(5));
 	    		courseProfTextField.setText(ca.rs.getString(6));
-	    		courseNumTextField.setText(ca.rs.getString(2));
+	    		courseCnameTextField.setText(ca.rs.getString(2));
 	    		//System.out.println(passwordFromDatabase);
 	        }
 	    	    	
