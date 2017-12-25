@@ -148,17 +148,18 @@ public class ProfSelfView {
 		JButton profClassStuInfoBtn = new JButton("\u9009\u8BFE\u5B66\u751F\u4FE1\u606F");
 		profClassStuInfoBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				StudentView.main(null);
 			}
 		});
 		profClassStuInfoBtn.setFont(new Font("宋体", Font.BOLD, 25));
-		profClassStuInfoBtn.setBounds(110, 515, 245, 55);
+		profClassStuInfoBtn.setBounds(329, 517, 245, 55);
 		profPanel.add(profClassStuInfoBtn);
 		
-		// 跳转到新页面: 显示本班学生成绩统计信息
-		JButton profStuGpaBtn = new JButton("\u5B66\u751F\u6210\u7EE9\u7EDF\u8BA1");
-		profStuGpaBtn.setFont(new Font("宋体", Font.BOLD, 25));
-		profStuGpaBtn.setBounds(525, 515, 245, 55);
-		profPanel.add(profStuGpaBtn);
+//		// 跳转到新页面: 显示本班学生成绩统计信息
+//		JButton profStuGpaBtn = new JButton("\u5B66\u751F\u6210\u7EE9\u7EDF\u8BA1");
+//		profStuGpaBtn.setFont(new Font("宋体", Font.BOLD, 25));
+//		profStuGpaBtn.setBounds(525, 515, 245, 55);
+//		profPanel.add(profStuGpaBtn);
 		
 		try {
 			String pname = "";
@@ -173,7 +174,7 @@ public class ProfSelfView {
 	    	while (ca.rs.next()) {
 	    		pname = ca.rs.getString(1);
 	    		profNameTextField.setText(pname);
-	    		profCollegeTextField.setText(ca.rs.getString(2));
+	    		profCollegeTextField.setText(ca.rs.getString(3));
 	    		//System.out.println(passwordFromDatabase);
 	        }
 	    	    	

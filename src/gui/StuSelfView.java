@@ -210,7 +210,7 @@ public class StuSelfView {
 			table.setBounds(125, 435, 650, 139);
 			
 			JScrollPane scrollPane = new JScrollPane(table);
-			stuInfoPanel.add(scrollPane);stuInfoPanel.add(table);
+			stuInfoPanel.add(scrollPane);
 	    	
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
