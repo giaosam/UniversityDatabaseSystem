@@ -145,7 +145,7 @@ public class DeptView {
 			ConnectAccess ca = new ConnectAccess();
 			ca.ConnectAccessFile();
 			
-			ca.stmt = ca.conn.prepareStatement("SELECT * FROM dept WHERE deptid = ?");
+			ca.stmt = ca.conn.prepareStatement("SELECT * FROM dept WHERE did = ?");
 			ca.stmt.setInt(1, deptIdToCheck);
 	    	ca.rs = ca.stmt.executeQuery();
 	    		    	

@@ -188,7 +188,7 @@ public class ProfSelfView {
 	    	while (ca.rs.next()) {
 	    		profCnoTextField.setText(ca.rs.getString(2));
 	    		profSectnoTextField.setText(ca.rs.getString(3));
-	    		profCnameTextField.setText(ca.rs.getString(4));
+	    		profCnameTextField.setText(ca.rs.getString(5));
 	        }
 	    	    	
 	    	ca.rs.close();
